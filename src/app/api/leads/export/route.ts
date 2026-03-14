@@ -46,11 +46,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Array de leads requis' }, { status: 400 });
   }
 
-  const { data, error } = await supabase
+  // Filtrer les leads sans email avant upsert
+  const leadsWithEmail = leads.filter(l => l.email && l.email.trim() !== '');
+
+  if (leadsWithEmail.length === 0) {
+    return NextResponse.json({ success: true, saved: 0, message: 'Aucun lead avec email' });
+  }
+
+  const { error } = await supabase
     .from('prospects_email')
-    .upsert(leads, { onConflict: 'email' });
+    .upsert(leadsWithEmail, { onConflict: 'email', ignoreDuplicates: true });
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  return NextResponse.json({ success: true, saved: leads.length });
+  return NextResponse.json({ success: true, saved: leadsWithEmail.length });
 }
