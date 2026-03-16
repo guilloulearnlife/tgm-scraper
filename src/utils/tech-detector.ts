@@ -90,7 +90,7 @@ function detectCMS($: cheerio.CheerioAPI, html: string, headers: Record<string, 
   if (
     html.includes('shopify') ||
     html.includes('cdn.shopify.com') ||
-    $('meta[name="shopify-')').length > 0 ||
+    $('meta[name^="shopify-"]').length > 0 ||
     headers['x-shopify-stage']
   ) {
     return 'Shopify';
