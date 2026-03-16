@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import * as cheerio from 'cheerio';
-import { detectTechnologies } from '@/utils/tech-detector';
+import { detectTechnologies } from '../../../../utils/tech-detector';
 
 // Configuration Supabase
 const supabase = createClient(
