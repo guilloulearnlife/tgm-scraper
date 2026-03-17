@@ -2,16 +2,186 @@
 import { useState, useEffect } from 'react';
 
 const TARGETS = [
+  // === FRANCE - Grandes villes ===
   { pays: 'France', ville: 'Paris', secteur: 'agence_marketing', query: 'agence marketing digital Paris' },
-  { pays: 'France', ville: 'Lyon', secteur: 'cabinet_comptable', query: 'cabinet comptable expertise Lyon' },
   { pays: 'France', ville: 'Paris', secteur: 'agence_immobiliere', query: 'agence immobilière promoteur Paris' },
-  { pays: 'France', ville: 'Bordeaux', secteur: 'formation', query: 'organisme formation professionnelle Bordeaux' },
+  { pays: 'France', ville: 'Paris', secteur: 'cabinet_comptable', query: 'cabinet comptable expertise Paris' },
+  { pays: 'France', ville: 'Paris', secteur: 'cabinet_juridique', query: 'cabinet avocat notaire Paris' },
+  { pays: 'France', ville: 'Paris', secteur: 'coaching', query: 'coach professionnel consultant Paris' },
+  
+  { pays: 'France', ville: 'Lyon', secteur: 'agence_marketing', query: 'agence communication marketing Lyon' },
+  { pays: 'France', ville: 'Lyon', secteur: 'cabinet_comptable', query: 'cabinet comptable expertise Lyon' },
+  { pays: 'France', ville: 'Lyon', secteur: 'formation', query: 'organisme formation professionnelle Lyon' },
+  { pays: 'France', ville: 'Lyon', secteur: 'agence_immobiliere', query: 'agence immobilière Lyon' },
+  
+  { pays: 'France', ville: 'Marseille', secteur: 'agence_marketing', query: 'agence marketing digital Marseille' },
+  { pays: 'France', ville: 'Marseille', secteur: 'cabinet_juridique', query: 'cabinet avocat Marseille' },
+  { pays: 'France', ville: 'Marseille', secteur: 'agence_immobiliere', query: 'agence immobilière Marseille' },
+  
+  { pays: 'France', ville: 'Toulouse', secteur: 'agence_web', query: 'agence web développement Toulouse' },
   { pays: 'France', ville: 'Toulouse', secteur: 'cabinet_juridique', query: 'cabinet avocat notaire Toulouse' },
+  { pays: 'France', ville: 'Toulouse', secteur: 'formation', query: 'centre formation Toulouse' },
+  
+  { pays: 'France', ville: 'Bordeaux', secteur: 'formation', query: 'organisme formation professionnelle Bordeaux' },
+  { pays: 'France', ville: 'Bordeaux', secteur: 'agence_marketing', query: 'agence marketing Bordeaux' },
+  { pays: 'France', ville: 'Bordeaux', secteur: 'cabinet_comptable', query: 'expert comptable Bordeaux' },
+  
+  { pays: 'France', ville: 'Nice', secteur: 'agence_immobiliere', query: 'agence immobilière Nice' },
+  { pays: 'France', ville: 'Nice', secteur: 'coaching', query: 'coach professionnel Nice' },
+  
+  { pays: 'France', ville: 'Nantes', secteur: 'agence_web', query: 'agence web digital Nantes' },
+  { pays: 'France', ville: 'Nantes', secteur: 'formation', query: 'organisme formation Nantes' },
+  
+  { pays: 'France', ville: 'Strasbourg', secteur: 'cabinet_juridique', query: 'cabinet avocat Strasbourg' },
+  { pays: 'France', ville: 'Rennes', secteur: 'agence_marketing', query: 'agence marketing Rennes' },
+  { pays: 'France', ville: 'Lille', secteur: 'cabinet_comptable', query: 'expert comptable Lille' },
+  
+  // === BELGIQUE ===
   { pays: 'Belgique', ville: 'Bruxelles', secteur: 'agence_web', query: 'agence web développement digital Bruxelles' },
+  { pays: 'Belgique', ville: 'Bruxelles', secteur: 'agence_marketing', query: 'agence marketing communication Bruxelles' },
+  { pays: 'Belgique', ville: 'Bruxelles', secteur: 'cabinet_comptable', query: 'cabinet comptable fiduciaire Bruxelles' },
+  { pays: 'Belgique', ville: 'Bruxelles', secteur: 'coaching', query: 'coach professionnel consultant Bruxelles' },
+  { pays: 'Belgique', ville: 'Bruxelles', secteur: 'formation', query: 'organisme formation Bruxelles' },
+  
+  { pays: 'Belgique', ville: 'Anvers', secteur: 'agence_marketing', query: 'agence marketing Anvers' },
+  { pays: 'Belgique', ville: 'Liège', secteur: 'cabinet_juridique', query: 'cabinet avocat Liège' },
+  { pays: 'Belgique', ville: 'Gand', secteur: 'agence_web', query: 'agence web Gand' },
+  
+  // === SUISSE ===
   { pays: 'Suisse', ville: 'Genève', secteur: 'consultant_b2b', query: 'cabinet conseil stratégie Genève' },
+  { pays: 'Suisse', ville: 'Genève', secteur: 'cabinet_comptable', query: 'fiduciaire expert comptable Genève' },
+  { pays: 'Suisse', ville: 'Genève', secteur: 'agence_immobiliere', query: 'agence immobilière Genève' },
+  { pays: 'Suisse', ville: 'Genève', secteur: 'coaching', query: 'coach business professionnel Genève' },
+  
+  { pays: 'Suisse', ville: 'Lausanne', secteur: 'agence_marketing', query: 'agence marketing digital Lausanne' },
+  { pays: 'Suisse', ville: 'Lausanne', secteur: 'formation', query: 'organisme formation Lausanne' },
+  
+  { pays: 'Suisse', ville: 'Zurich', secteur: 'consultant_b2b', query: 'cabinet conseil Zurich' },
+  { pays: 'Suisse', ville: 'Zurich', secteur: 'agence_web', query: 'agence web Zurich' },
+  
+  // === LUXEMBOURG ===
+  { pays: 'Luxembourg', ville: 'Luxembourg', secteur: 'cabinet_comptable', query: 'fiduciaire cabinet comptable Luxembourg' },
+  { pays: 'Luxembourg', ville: 'Luxembourg', secteur: 'consultant_b2b', query: 'cabinet conseil Luxembourg' },
+  { pays: 'Luxembourg', ville: 'Luxembourg', secteur: 'agence_marketing', query: 'agence marketing Luxembourg' },
+  
+  // === CANADA - QUÉBEC ===
+  { pays: 'Canada', ville: 'Montréal', secteur: 'agence_marketing', query: 'agence marketing digital Montréal' },
+  { pays: 'Canada', ville: 'Montréal', secteur: 'agence_web', query: 'agence web développement Montréal' },
+  { pays: 'Canada', ville: 'Montréal', secteur: 'cabinet_comptable', query: 'cabinet comptable CPA Montréal' },
+  { pays: 'Canada', ville: 'Montréal', secteur: 'formation', query: 'organisme formation Montréal' },
+  { pays: 'Canada', ville: 'Montréal', secteur: 'agence_immobiliere', query: 'agence immobilière courtier Montréal' },
+  
+  { pays: 'Canada', ville: 'Québec', secteur: 'agence_marketing', query: 'agence marketing Québec' },
+  { pays: 'Canada', ville: 'Québec', secteur: 'cabinet_juridique', query: 'cabinet avocat notaire Québec' },
+  
+  { pays: 'Canada', ville: 'Gatineau', secteur: 'formation', query: 'centre formation Gatineau' },
+  { pays: 'Canada', ville: 'Laval', secteur: 'agence_immobiliere', query: 'agence immobilière Laval' },
+  
+  // === CAMEROUN ===
   { pays: 'Cameroun', ville: 'Douala', secteur: 'microfinance', query: 'microfinance institution financière Douala' },
+  { pays: 'Cameroun', ville: 'Douala', secteur: 'agence_immobiliere', query: 'agence immobilière promoteur Douala' },
+  { pays: 'Cameroun', ville: 'Douala', secteur: 'ecole_privee', query: 'école privée institut formation Douala' },
+  { pays: 'Cameroun', ville: 'Douala', secteur: 'cabinet_comptable', query: 'cabinet comptable expertise Douala' },
+  { pays: 'Cameroun', ville: 'Douala', secteur: 'agence_marketing', query: 'agence marketing communication Douala' },
+  { pays: 'Cameroun', ville: 'Douala', secteur: 'clinique', query: 'clinique centre médical Douala' },
+  
+  { pays: 'Cameroun', ville: 'Yaoundé', secteur: 'microfinance', query: 'microfinance établissement crédit Yaoundé' },
+  { pays: 'Cameroun', ville: 'Yaoundé', secteur: 'agence_immobiliere', query: 'agence immobilière Yaoundé' },
+  { pays: 'Cameroun', ville: 'Yaoundé', secteur: 'ecole_privee', query: 'école privée université Yaoundé' },
+  { pays: 'Cameroun', ville: 'Yaoundé', secteur: 'cabinet_juridique', query: 'cabinet avocat conseil juridique Yaoundé' },
+  { pays: 'Cameroun', ville: 'Yaoundé', secteur: 'formation', query: 'centre formation professionnelle Yaoundé' },
+  { pays: 'Cameroun', ville: 'Yaoundé', secteur: 'clinique', query: 'clinique polyclinique Yaoundé' },
+  
+  { pays: 'Cameroun', ville: 'Bafoussam', secteur: 'microfinance', query: 'microfinance Bafoussam' },
+  { pays: 'Cameroun', ville: 'Garoua', secteur: 'agence_immobiliere', query: 'agence immobilière Garoua' },
+  
+  // === SÉNÉGAL ===
   { pays: 'Sénégal', ville: 'Dakar', secteur: 'immobilier', query: 'promoteur immobilier agence Dakar' },
+  { pays: 'Sénégal', ville: 'Dakar', secteur: 'microfinance', query: 'microfinance institution financière Dakar' },
+  { pays: 'Sénégal', ville: 'Dakar', secteur: 'agence_marketing', query: 'agence marketing digital Dakar' },
+  { pays: 'Sénégal', ville: 'Dakar', secteur: 'ecole_privee', query: 'école privée formation Dakar' },
+  { pays: 'Sénégal', ville: 'Dakar', secteur: 'cabinet_comptable', query: 'cabinet comptable expertise Dakar' },
+  { pays: 'Sénégal', ville: 'Dakar', secteur: 'agence_web', query: 'agence web digital Dakar' },
+  
+  { pays: 'Sénégal', ville: 'Thiès', secteur: 'formation', query: 'centre formation Thiès' },
+  { pays: 'Sénégal', ville: 'Saint-Louis', secteur: 'agence_immobiliere', query: 'agence immobilière Saint-Louis' },
+  
+  // === CÔTE D'IVOIRE ===
   { pays: "Côte d'Ivoire", ville: 'Abidjan', secteur: 'ecole_privee', query: 'école privée université Abidjan' },
+  { pays: "Côte d'Ivoire", ville: 'Abidjan', secteur: 'microfinance', query: 'microfinance institution Abidjan' },
+  { pays: "Côte d'Ivoire", ville: 'Abidjan', secteur: 'agence_immobiliere', query: 'agence immobilière promoteur Abidjan' },
+  { pays: "Côte d'Ivoire", ville: 'Abidjan', secteur: 'agence_marketing', query: 'agence marketing communication Abidjan' },
+  { pays: "Côte d'Ivoire", ville: 'Abidjan', secteur: 'cabinet_comptable', query: 'cabinet comptable expertise Abidjan' },
+  { pays: "Côte d'Ivoire", ville: 'Abidjan', secteur: 'formation', query: 'centre formation professionnelle Abidjan' },
+  
+  { pays: "Côte d'Ivoire", ville: 'Bouaké', secteur: 'ecole_privee', query: 'école privée Bouaké' },
+  { pays: "Côte d'Ivoire", ville: 'Yamoussoukro', secteur: 'formation', query: 'centre formation Yamoussoukro' },
+  
+  // === BÉNIN ===
+  { pays: 'Bénin', ville: 'Cotonou', secteur: 'microfinance', query: 'microfinance institution Cotonou' },
+  { pays: 'Bénin', ville: 'Cotonou', secteur: 'agence_immobiliere', query: 'agence immobilière Cotonou' },
+  { pays: 'Bénin', ville: 'Cotonou', secteur: 'ecole_privee', query: 'école privée formation Cotonou' },
+  { pays: 'Bénin', ville: 'Cotonou', secteur: 'agence_marketing', query: 'agence marketing Cotonou' },
+  
+  // === TOGO ===
+  { pays: 'Togo', ville: 'Lomé', secteur: 'microfinance', query: 'microfinance Lomé' },
+  { pays: 'Togo', ville: 'Lomé', secteur: 'agence_immobiliere', query: 'agence immobilière Lomé' },
+  { pays: 'Togo', ville: 'Lomé', secteur: 'ecole_privee', query: 'école privée Lomé' },
+  
+  // === BURKINA FASO ===
+  { pays: 'Burkina Faso', ville: 'Ouagadougou', secteur: 'microfinance', query: 'microfinance Ouagadougou' },
+  { pays: 'Burkina Faso', ville: 'Ouagadougou', secteur: 'agence_immobiliere', query: 'agence immobilière Ouagadougou' },
+  { pays: 'Burkina Faso', ville: 'Ouagadougou', secteur: 'formation', query: 'centre formation Ouagadougou' },
+  
+  // === MALI ===
+  { pays: 'Mali', ville: 'Bamako', secteur: 'microfinance', query: 'microfinance Bamako' },
+  { pays: 'Mali', ville: 'Bamako', secteur: 'agence_immobiliere', query: 'agence immobilière Bamako' },
+  { pays: 'Mali', ville: 'Bamako', secteur: 'ecole_privee', query: 'école privée Bamako' },
+  
+  // === NIGER ===
+  { pays: 'Niger', ville: 'Niamey', secteur: 'microfinance', query: 'microfinance Niamey' },
+  { pays: 'Niger', ville: 'Niamey', secteur: 'formation', query: 'centre formation Niamey' },
+  
+  // === GABON ===
+  { pays: 'Gabon', ville: 'Libreville', secteur: 'agence_immobiliere', query: 'agence immobilière Libreville' },
+  { pays: 'Gabon', ville: 'Libreville', secteur: 'microfinance', query: 'microfinance Libreville' },
+  { pays: 'Gabon', ville: 'Libreville', secteur: 'ecole_privee', query: 'école privée Libreville' },
+  
+  // === CONGO-BRAZZAVILLE ===
+  { pays: 'Congo', ville: 'Brazzaville', secteur: 'agence_immobiliere', query: 'agence immobilière Brazzaville' },
+  { pays: 'Congo', ville: 'Brazzaville', secteur: 'microfinance', query: 'microfinance Brazzaville' },
+  
+  // === RDC ===
+  { pays: 'RD Congo', ville: 'Kinshasa', secteur: 'microfinance', query: 'microfinance Kinshasa' },
+  { pays: 'RD Congo', ville: 'Kinshasa', secteur: 'agence_immobiliere', query: 'agence immobilière Kinshasa' },
+  { pays: 'RD Congo', ville: 'Kinshasa', secteur: 'ecole_privee', query: 'école privée université Kinshasa' },
+  
+  // === MADAGASCAR ===
+  { pays: 'Madagascar', ville: 'Antananarivo', secteur: 'microfinance', query: 'microfinance Antananarivo' },
+  { pays: 'Madagascar', ville: 'Antananarivo', secteur: 'agence_immobiliere', query: 'agence immobilière Antananarivo' },
+  { pays: 'Madagascar', ville: 'Antananarivo', secteur: 'formation', query: 'centre formation Antananarivo' },
+  
+  // === MAURICE ===
+  { pays: 'Maurice', ville: 'Port-Louis', secteur: 'agence_marketing', query: 'agence marketing Port-Louis' },
+  { pays: 'Maurice', ville: 'Port-Louis', secteur: 'cabinet_comptable', query: 'cabinet comptable Port-Louis' },
+  
+  // === MAROC (francophone) ===
+  { pays: 'Maroc', ville: 'Casablanca', secteur: 'agence_marketing', query: 'agence marketing digital Casablanca' },
+  { pays: 'Maroc', ville: 'Casablanca', secteur: 'agence_immobiliere', query: 'agence immobilière Casablanca' },
+  { pays: 'Maroc', ville: 'Casablanca', secteur: 'formation', query: 'centre formation Casablanca' },
+  
+  { pays: 'Maroc', ville: 'Rabat', secteur: 'cabinet_comptable', query: 'cabinet comptable expertise Rabat' },
+  { pays: 'Maroc', ville: 'Marrakech', secteur: 'agence_marketing', query: 'agence marketing Marrakech' },
+  
+  // === TUNISIE (francophone) ===
+  { pays: 'Tunisie', ville: 'Tunis', secteur: 'agence_web', query: 'agence web développement Tunis' },
+  { pays: 'Tunisie', ville: 'Tunis', secteur: 'agence_marketing', query: 'agence marketing Tunis' },
+  { pays: 'Tunisie', ville: 'Tunis', secteur: 'formation', query: 'centre formation Tunis' },
+  
+  // === ALGÉRIE (francophone) ===
+  { pays: 'Algérie', ville: 'Alger', secteur: 'agence_immobiliere', query: 'agence immobilière Alger' },
+  { pays: 'Algérie', ville: 'Alger', secteur: 'formation', query: 'centre formation Alger' },
+  { pays: 'Algérie', ville: 'Oran', secteur: 'agence_marketing', query: 'agence marketing Oran' },
 ];
 
 type Lead = {
