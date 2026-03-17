@@ -171,7 +171,6 @@ async function scrapeProspect(place: any, secteur?: string): Promise<ScrapedPros
       prospect.a_chatbot = siteData.techDetection.a_chatbot;
       prospect.a_formulaire_contact = siteData.techDetection.a_formulaire_contact;
 
-      console.log(`✅ ${prospect.nom_entreprise} - CMS: ${siteData.techDetection.technologies_detectees?.cms || "N/A"} - Niveau: ${siteData.techDetection.niveau_digital}`);
 
     } catch (error) {
       console.error(`❌ Erreur scraping site ${placeDetails.website}:`, error);
